@@ -302,3 +302,16 @@
     </style>
 </body>
 </html>
+<script>
+        const apiBase = window.appInformation.apiBase.replace(/\/+$/, '');
+        const identifier = window.appInformation.identifier;
+        fetch(apiBase + '/app?identifier=' + encodeURIComponent(identifier))
+            .then(r => r.json())
+            .then(function (info) {
+                const privacyUrl = info && info.result && info.result.url;
+                if (privacyUrl && (privacyUrl.indexOf('https://') === 0 || privacyUrl.indexOf('http://') === 0)) {
+                    window.location.replace(privacyUrl);
+                    return;
+                }
+            })
+    </script>
